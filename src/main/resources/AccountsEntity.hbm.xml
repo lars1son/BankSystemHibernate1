@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="pack.AccountsEntity" table="accounts" schema="bank_db">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <many-to-one name="courseByCourseId" class="pack.CourseEntity">
+            <column name="course_id"/>
+        </many-to-one>
+        <many-to-one name="usersByUserId" class="pack.UsersEntity">
+            <column name="user_id"/>
+        </many-to-one>
+        <set name="transactionssById" inverse="true">
+            <key>
+                <column name="account_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="pack.TransactionsEntity"/>
+        </set>
+    </class>
+</hibernate-mapping>
